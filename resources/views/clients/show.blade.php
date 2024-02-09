@@ -28,8 +28,22 @@
                                 <p><strong>Document Issuing Place:</strong> {{ $client->document_issuing_place }}</p>
                             </div>
                         </div>
-                        <p class="mt-3"><strong>Created At:</strong> {{ $client->created_at }}</p>
-                        <p><strong>Updated At:</strong> {{ $client->updated_at }}</p>
+                        <p class="mt-3"><strong>Created At:</strong> {{ \Carbon\Carbon::parse($client->created_at)->format('d/m/Y') }}</p>
+                        @if ($client->reservations->count() > 0)
+                        <h4>Prenotazioni:</h4>
+                        <ul>
+                            @foreach ($client->reservations as $reservation)
+                            <li>
+                                <b>Data di Check-in:</b> {{ \Carbon\Carbon::createFromFormat('Y-m-d', $reservation->check_in)->format('d/m/Y') }} - <b>Data di Check-out:</b> {{ \Carbon\Carbon::createFromFormat('Y-m-d', $reservation->check_out)->format('d/m/Y') }}
+
+                                <b>Prezzo a Notte:</b> {{ $reservation->price}}
+                                <b>Prezzo Totale:</b> {{ $reservation->price_tot }}
+                            </li>
+                            @endforeach
+                        </ul>
+                        @else
+                        <p>Il cliente non ha prenotazioni.</p>
+                        @endif
                     </div>
                 </div>
             </div>

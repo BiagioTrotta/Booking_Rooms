@@ -9,6 +9,7 @@ use Livewire\WithPagination;
 class ClientList extends Component
 {
     public $clients;
+    public $confirmingClientId = null;
 
     protected $listeners = [
         'loadClients'
@@ -29,6 +30,11 @@ class ClientList extends Component
         $this->dispatch('edit', $client_id);
     }
 
+    public function confirmClientDeletion($client_id)
+    {
+        $this->confirmingClientId = $client_id;
+    }
+
     public function deleteClient($client_id)
     {
         $client = Client::find($client_id);
@@ -38,8 +44,10 @@ class ClientList extends Component
 
         session()->flash('success', 'User successfully deleted');
         $this->loadClients();
-    }
 
+        // Resetta la variabile di stato per nascondere il messaggio di conferma
+        $this->confirmingClientId = null;
+    }
 
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
