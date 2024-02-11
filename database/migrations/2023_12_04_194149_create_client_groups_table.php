@@ -6,31 +6,29 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
-        Schema::create('clients', function (Blueprint $table) {
+        Schema::create('client_groups', function (Blueprint $table) {
             $table->id();
-            $table->string('lastname', 10);
+            $table->string('lastname', 10)->nullable();
             $table->string('firstname', 10)->nullable();
-            $table->string('phone', 20)->nullable();
-            $table->string('email')->nullable();
-            //others
+            $table->enum('gender', ['male', 'female', 'other'])->nullable();
             $table->date('date_of_birth')->nullable();
             $table->string('place_of_birth')->nullable();
-            $table->enum('gender', ['male', 'female', 'other'])->nullable();
             $table->string('identity_document')->nullable();
             $table->string('document_number')->nullable();
-            $table->string('document_issuing_place')->nullable();
-            //client_groups
-            $table->unsignedBigInteger('group_id')->nullable();
-            $table->foreign('group_id')->references('id')->on('client_groups')->onDelete('set null');
-
             $table->timestamps();
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        Schema::dropIfExists('clients');
+        Schema::dropIfExists('client_groups');
     }
 };

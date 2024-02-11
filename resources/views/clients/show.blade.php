@@ -1,46 +1,57 @@
 <x-main>
     <x-slot:title>{{ $title }}</x-slot:title>
 
-
     <div class="container">
-        <a href="{{ route('admin.clients') }}" class="btn btn-dark my-3"><i class="fa-solid fa-arrow-rotate-left"></i> Back</a>
+        <a href="{{ route('admin.clients') }}" class="btn btn-dark my-3"><i class="fa-solid fa-arrow-rotate-left"></i> Torna Indietro</a>
         <div class="row">
-            <div class="col-12">
-                <div class="card shadow">
+            <div class="col-md-8 mx-auto">
+                <div class="card">
                     <div class="card-header bg-primary text-white">
-                        <h5 class="card-title m-0">Client Details</h5>
+                        <h5 class="card-title m-0">Dettagli Cliente</h5>
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
                                 <p><strong>ID:</strong> {{ $client->id }}</p>
-                                <p><strong>Last Name:</strong> {{ $client->lastname }}</p>
-                                <p><strong>First Name:</strong> {{ $client->firstname }}</p>
-                                <p><strong>Phone:</strong> {{ $client->phone }}</p>
+                                <p><strong>Cognome:</strong> {{ $client->lastname }}</p>
+                                <p><strong>Nome:</strong> {{ $client->firstname }}</p>
+                                <p><strong>Telefono:</strong> {{ $client->phone }}</p>
                                 <p><strong>Email:</strong> {{ $client->email }}</p>
                             </div>
                             <div class="col-md-6">
-                                <p><strong>Date of Birth:</strong> {{ $client->date_of_birth }}</p>
-                                <p><strong>Place of Birth:</strong> {{ $client->place_of_birth }}</p>
-                                <p><strong>Gender:</strong> {{ $client->gender }}</p>
-                                <p><strong>Identity Document:</strong> {{ $client->identity_document }}</p>
-                                <p><strong>Document Number:</strong> {{ $client->document_number }}</p>
-                                <p><strong>Document Issuing Place:</strong> {{ $client->document_issuing_place }}</p>
+                                <p><strong>Data di Nascita:</strong> {{ $client->date_of_birth }}</p>
+                                <p><strong>Luogo di Nascita:</strong> {{ $client->place_of_birth }}</p>
+                                <p><strong>Sesso:</strong> {{ $client->gender }}</p>
+                                <p><strong>Documento d'Identità:</strong> {{ $client->identity_document }}</p>
+                                <p><strong>Numero Documento:</strong> {{ $client->document_number }}</p>
+                                <p><strong>Luogo di Rilascio Documento:</strong> {{ $client->document_issuing_place }}</p>
                             </div>
                         </div>
-                        <p class="mt-3"><strong>Created At:</strong> {{ \Carbon\Carbon::parse($client->created_at)->format('d/m/Y') }}</p>
+                        <p class="mt-3"><strong>Creato il:</strong> {{ \Carbon\Carbon::parse($client->created_at)->format('d/m/Y') }}</p>
                         @if ($client->reservations->count() > 0)
                         <h4>Prenotazioni:</h4>
-                        <ul>
-                            @foreach ($client->reservations as $reservation)
-                            <li>
-                                <b>Data di Check-in:</b> {{ \Carbon\Carbon::createFromFormat('Y-m-d', $reservation->check_in)->format('d/m/Y') }} - <b>Data di Check-out:</b> {{ \Carbon\Carbon::createFromFormat('Y-m-d', $reservation->check_out)->format('d/m/Y') }}
-
-                                <b>Prezzo a Notte:</b> {{ $reservation->price}}
-                                <b>Prezzo Totale:</b> {{ $reservation->price_tot }}
-                            </li>
-                            @endforeach
-                        </ul>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Data di Check-in</th>
+                                        <th>Data di Check-out</th>
+                                        <th>Prezzo a Notte</th>
+                                        <th>Prezzo Totale</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($client->reservations as $reservation)
+                                    <tr>
+                                        <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $reservation->check_in)->format('d/m/Y') }}</td>
+                                        <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $reservation->check_out)->format('d/m/Y') }}</td>
+                                        <td>{{ $reservation->price }} €</td>
+                                        <td>{{ $reservation->price_tot }} €</td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                         @else
                         <p>Il cliente non ha prenotazioni.</p>
                         @endif

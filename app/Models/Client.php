@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\ClientGroup;
 use App\Models\Reservation;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -27,6 +28,11 @@ class Client extends Model
     public function reservations()
     {
         return $this->hasMany(Reservation::class);
+    }
+
+    public function group()
+    {
+        return $this->belongsTo(ClientGroup::class, 'group_id');
     }
 
 }
