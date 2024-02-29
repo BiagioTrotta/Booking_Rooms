@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('check_out');
             $table->decimal('price', 10, 2)->default(0.00);
             $table->decimal('price_tot', 10, 2)->default(0.00);
+            $table->boolean('paid')->default(false);
             $table->timestamps();
         });
     }

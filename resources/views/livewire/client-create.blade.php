@@ -9,7 +9,7 @@
         </div>
 
         <div class="col-12">
-                <x-session-alerts />
+            <x-session-alerts />
         </div>
 
         <div class="col-12">
@@ -37,15 +37,17 @@
 
             <div class="form-group">
                 <label for="phone">Telefono:</label>
-                <input type="text" wire:model="phone" class="form-control" id="phone">
+                <input type="number" wire:model="phone" class="form-control" id="phone">
                 @error('phone') <span class="text-danger fw-bold">{{ $message }}</span> @enderror
             </div>
 
+            <!-- Collapse Dettails -->
             <p class="form-group mt-3">
                 <button class="btn btn-outline-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                    <i class="fa-regular fa-circle-down"></i>
+                    <i class="fa-regular fa-circle-down"></i> Aggiungi Dati
                 </button>
             </p>
+
             <div class="collapse" id="collapseExample">
                 <div class="card card-body">
                     <div class="form-group">
@@ -54,7 +56,6 @@
                         @error('date_of_birth') <span class="text-danger fw-bold">{{ $message }}</span> @enderror
                     </div>
 
-                    <!-- Aggiungi altri campi per i nuovi dati facoltativi -->
                     <div class="form-group">
                         <label for="place_of_birth">Luogo di nascita:</label>
                         <input type="text" wire:model="place_of_birth" class="form-control" id="place_of_birth">
@@ -97,7 +98,137 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-dark mt-2 px-4"><i class="fa-regular fa-floppy-disk"></i></button>
+            <!-- Collapse Groups -->
+            <p class="form-group mt-3">
+                <button class="btn btn-outline-dark" type="button" data-bs-toggle="collapse" data-bs-target="#openGroup" aria-expanded="false" aria-controls="openGroup">
+                    <i class="fa-regular fa-circle-down"></i> Aggiungi Gruppo
+                </button>
+            </p>
+            <div class="collapse" id="openGroup">
+                <div class="card card-body">
+                    <!-- Inserisci campi per il primo gruppo -->
+                    <h5 class="bg-dark text-white rounded">Gruppo 1</h5>
+                    <div class="form-group">
+                        <label for="lastname_group_1">Cognome:</label>
+                        <input type="text" wire:model="lastname_group_1" class="form-control" id="lastname_group_1">
+                        @error('lastname_group_1') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="firstname_group_1">Nome:</label>
+                        <input type="text" wire:model="firstname_group_1" class="form-control" id="firstname_group_1">
+                        @error('firstname_group_1') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date_of_birth_group_1">Data di nascita:</label>
+                        <input type="date" wire:model="date_of_birth_group_1" class="form-control" id="date_of_birth_group_1">
+                        @error('date_of_birth_group_1') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="place_of_birth_group_1">Luogo di nascita:</label>
+                        <input type="text" wire:model="place_of_birth_group_1" class="form-control" id="place_of_birth_group_1">
+                        @error('place_of_birth_group_1') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="gender_group_1">Sesso:</label>
+                        <select wire:model="gender_group_1" class="form-control" id="gender_group_1">
+                            <option value="">Seleziona sesso</option>
+                            <option value="male">Maschio</option>
+                            <option value="female">Femmina</option>
+                            <option value="other">Altro</option>
+                        </select>
+                        @error('gender_group_1') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="identity_document_group_1">Documento di identità:</label>
+                        <select wire:model="identity_document_group_1" class="form-control" id="identity_document_group_1">
+                            <option value="">Scegli il tipo di documento</option>
+                            <option value="Patente">Patente</option>
+                            <option value="Passaporto">Passaporto</option>
+                            <option value="Carta d'Identità">Carta d'Identità</option>
+                        </select>
+                        @error('identity_document_group_1') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="document_number_group_1">Numero documento:</label>
+                        <input type="text" wire:model="document_number_group_1" class="form-control" id="document_number_group_1">
+                        @error('document_number_group_1') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="document_issuing_place_group_1">Luogo rilascio documento:</label>
+                        <input type="text" wire:model="document_issuing_place_group_1" class="form-control" id="document_issuing_place_group_1">
+                        @error('document_issuing_place_group_1') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+
+                    <!-- Inserisci campi per il secondo gruppo -->
+                    <h5 class="bg-dark text-white mt-3 rounded">Gruppo 2</h5>
+
+                    <div class="form-group">
+                        <label for="lastname_group_2">Cognome:</label>
+                        <input type="text" wire:model="lastname_group_2" class="form-control" id="lastname_group_2">
+                        @error('lastname_group_2') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="firstname_group_2">Nome:</label>
+                        <input type="text" wire:model="firstname_group_2" class="form-control" id="firstname_group_2">
+                        @error('firstname_group_2') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date_of_birth_group_2">Data di nascita:</label>
+                        <input type="date" wire:model="date_of_birth_group_2" class="form-control" id="date_of_birth_group_2">
+                        @error('date_of_birth_group_2') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="place_of_birth_group_2">Luogo di nascita:</label>
+                        <input type="text" wire:model="place_of_birth_group_2" class="form-control" id="place_of_birth_group_2">
+                        @error('place_of_birth_group_2') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="gender_group_2">Sesso:</label>
+                        <select wire:model="gender_group_2" class="form-control" id="gender_group_2">
+                            <option value="">Seleziona sesso</option>
+                            <option value="male">Maschio</option>
+                            <option value="female">Femmina</option>
+                            <option value="other">Altro</option>
+                        </select>
+                        @error('gender_group_2') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="identity_document_group_2">Documento di identità:</label>
+                        <select wire:model="identity_document_group_2" class="form-control" id="identity_document_group_2">
+                            <option value="">Scegli il tipo di documento</option>
+                            <option value="Patente">Patente</option>
+                            <option value="Passaporto">Passaporto</option>
+                            <option value="Carta d'Identità">Carta d'Identità</option>
+                        </select>
+                        @error('identity_document_group_2') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="document_number_group_2">Numero documento:</label>
+                        <input type="text" wire:model="document_number_group_2" class="form-control" id="document_number_group_2">
+                        @error('document_number_group_2') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="document_issuing_place_group_2">Luogo rilascio documento:</label>
+                        <input type="text" wire:model="document_issuing_place_group_2" class="form-control" id="document_issuing_place_group_2">
+                        @error('document_issuing_place_group_2') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-dark mt-2 px-4"><i class="fa-regular fa-floppy-disk"></i> Salva</button>
         </form>
     </div>
 </div>

@@ -15,65 +15,58 @@ use Illuminate\Validation\Rule;
 class ReservationController extends Controller
 {
 
-    public function index()
-    {
-        $title = 'Index';
-        return view('reservations.index', compact('title'));
-    }
-
-    public function getReservations(Request $request)
-    {
-        $month = $request->input('month');
-        $year = $request->input('year');
-
-        $reservations = [];
-
-        // Ottieni le prenotazioni per ciascuna camera e ciascun giorno del mese
-        for ($room = 101; $room <= 311; $room += 100) {
-            $reservationsForRoom = [];
-            for ($day = 1; $day <= 31; $day++) {
-                $reservationsForRoom[$day] = Reservation::where('room_id', $room)
-                    ->whereYear('check_in', $year)
-                    ->whereMonth('check_in', $month)
-                    ->whereDay('check_in', $day)
-                    ->orWhere(function ($query) use ($room, $year, $month, $day) {
-                        $query->where('room_id', $room)
-                            ->whereYear('check_out', '>=', $year)
-                            ->whereMonth('check_out', '>=', $month)
-                            ->whereDay('check_out', '>=', $day);
-                    })
-                    ->exists();
-            }
-            $reservations[$room] = $reservationsForRoom;
-        }
-
-        return response()->json($reservations);
-    }
-
-
     public function create(Request $request)
     {
         $title = 'Add Reservation';
         $clients = Client::all();
         $rooms = Room::all();
-        $selectedMonth = $request->input('selectedMonth', Carbon::now()->format('Y-m'));
         $selectedClient = $request->input('selectedClient');
         $selectedRoom = $request->input('selectedRoom');
         $dateRange = $request->input('dateRange');
 
+
+        // Inizializza le variabili $startDate e $endDate con valori predefiniti
+        $startDate = null;
+        $endDate = null;
+        $formattedDateRange = null;
+
+        // Verifica se è stato selezionato un intervallo di date
+        if ($dateRange && strpos($dateRange, ' to ') !== false) {
+            [$startDate, $endDate] = explode(' to ', $dateRange);
+
+            // Verifica che l'array generato da explode contenga almeno due elementi
+            if (count([$startDate, $endDate]) >= 2) {
+                // Verifica che la data di fine sia successiva alla data di inizio
+                if (Carbon::parse($endDate)->lt(Carbon::parse($startDate))) {
+                    // Se la data di fine è precedente alla data di inizio, scambiale
+                    [$startDate, $endDate] = [$endDate, $startDate];
+                }
+
+                // Verifica se la data di inizio e la data di fine sono uguali
+                if ($startDate === $endDate) {
+                    // Se sono uguali, aggiungi un giorno alla data di fine
+                    $endDate = Carbon::parse($endDate)->addDay()->format('Y-m-d');
+                }
+            }
+        }
+
         // Ottenere il mese dell'intervallo selezionato
-        if ($dateRange) {
-            $selectedMonth = Carbon::parse(explode(' to ', $dateRange)[0])->format('F Y');
+        if ($startDate && $endDate) {
+            $selectedMonth = Carbon::parse($startDate)->format('F Y');
+        } else {
+            $selectedMonth = Carbon::now()->format('F Y'); // Imposta il mese attuale come predefinito se non è stato selezionato alcun intervallo di date
+        }
+
+        // Imposta la data di fine su fine dell'anno corrente se non specificata
+        if (!$endDate) {
+            $endDate = Carbon::now()->endOfYear()->format('d-m-Y');
         }
 
         $query = Reservation::with(['client', 'room'])
-        ->orderBy('check_in')
-        ->orderBy('room_id');
+            ->orderBy('check_in')
+            ->orderBy('room_id');
 
-        if ($dateRange) {
-            // Dividi l'intervallo di date selezionato in data di inizio e data di fine
-            [$startDate, $endDate] = explode(' to ', $dateRange);
-
+        if ($startDate && $endDate) {
             $query->where(function ($query) use ($startDate, $endDate) {
                 $query->where('check_in', '>=', $startDate)
                     ->where('check_out', '<=', $endDate);
@@ -90,6 +83,7 @@ class ReservationController extends Controller
             });
         }
 
+
         $reservations = $query->get();
 
         return view('reservations.create', compact('title', 'clients', 'rooms', 'reservations', 'selectedMonth', 'selectedClient', 'selectedRoom', 'dateRange'));
@@ -99,6 +93,12 @@ class ReservationController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            "client_id"  => [
+                'required',
+            ],
+            "room_id" => [
+                'required',
+            ],
             'check_in' => [
                 'required',
                 'date',
@@ -166,6 +166,23 @@ class ReservationController extends Controller
         ]);
 
         return redirect()->route('reservation.create')->with('success', 'Prenotazione effettuata con successo!');
+    }
+
+    public function togglePaymentStatus($reservationId)
+    {
+        $reservation = Reservation::find($reservationId);
+
+        if ($reservation) {
+            // Cambia lo stato del pagamento
+            $reservation->paid = !$reservation->paid;
+            $reservation->save();
+        }
+
+        if ($reservation->paid) {
+            return redirect()->back()->with('success', 'Prenotazione pagata!');
+        } else {
+            return redirect()->back()->with('success', 'Prenotazione da pagare!');
+        };
     }
 
     public function edit($id)
@@ -268,7 +285,6 @@ class ReservationController extends Controller
         $end = Carbon::parse($check_out);
         $nights = $end->diffInDays($start);
         $price_tot = $price * $nights;
-
 
         $reservation->update([
             'client_id' => $client_id,

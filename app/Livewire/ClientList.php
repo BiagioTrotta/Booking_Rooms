@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Client;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Symfony\Component\Mailer\DelayedEnvelope;
 
 class ClientList extends Component
 {
@@ -33,17 +34,23 @@ class ClientList extends Component
     public function confirmClientDeletion($client_id)
     {
         $this->confirmingClientId = $client_id;
+        $this->dispatch('newClient');
+    }
+
+    public function cancelConfirmation()
+    {
+        $this->confirmingClientId = null;
     }
 
     public function deleteClient($client_id)
     {
         $client = Client::find($client_id);
-
         $client->reservations()->delete();
         $client->delete();
 
         session()->flash('success', 'User successfully deleted');
         $this->loadClients();
+
 
         // Resetta la variabile di stato per nascondere il messaggio di conferma
         $this->confirmingClientId = null;
@@ -55,7 +62,7 @@ class ClientList extends Component
     public function render()
     {
         return view('livewire.client-list', [
-            'clienti' => Client::orderBy('lastname')->orderBy('firstname')->paginate(7),
+            'clienti' => Client::orderBy('id')->paginate(8),
         ]);
     }
 

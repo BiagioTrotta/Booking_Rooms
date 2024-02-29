@@ -5,6 +5,7 @@
          <div class="form-group col-4">
              <label for="client_id">Cliente</label>
              <select name="client_id" id="client_id" class="form-control">
+                 <option value="">Select Client</option>
                  @foreach ($clients as $client)
                  <option value="{{ $client->id }}">{{ $client->lastname }} {{ $client->firstname }}</option>
                  @endforeach
@@ -13,6 +14,7 @@
          <div class="form-group col-4">
              <label for="room_id">Camera</label>
              <select name="room_id" id="room_id" class="form-control">
+                 <option value="">Select Room</option>
                  @foreach ($rooms as $room)
                  <option value="{{ $room->id }}">{{ $room->room_number }}</option>
                  @endforeach

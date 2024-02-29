@@ -18,6 +18,7 @@ class Reservation extends Model
         'check_out',
         'price',
         'price_tot',
+        'paid',
     ];
 
     public function client()

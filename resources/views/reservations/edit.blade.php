@@ -4,11 +4,7 @@
         <h1>Modifica Prenotazione</h1>
         <a href="{{ route('reservation.create') }}" class="btn btn-dark my-3"><i class="fa-solid fa-arrow-rotate-left"></i> Back</a>
         @if ($errors->any())
-        <div class="alert alert-danger">
-            @foreach ($errors->all() as $error)
-            <span>{{ $error }}</span>
-            @endforeach
-        </div>
+        <x-error-messages :errors="$errors" />
         @endif
 
         <form action="{{ route('reservation.update', $reservation->id) }}" method="POST">

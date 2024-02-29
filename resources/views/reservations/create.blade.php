@@ -6,6 +6,7 @@
     <x-error-messages :errors="$errors" />
     @endif
 
+
     {{-- Messaggio di successo --}}
     @if (session('success'))
     <x-success-notice :message="session('success')" />

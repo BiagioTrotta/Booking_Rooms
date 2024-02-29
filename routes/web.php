@@ -15,13 +15,9 @@ Route::post('/reservation/store', [ReservationController::class, 'store'])->name
 Route::get('/reservations/{id}/edit', [ReservationController::class, 'edit'])->name('reservation.edit');
 Route::put('/reservation/{id}', [ReservationController::class, 'update'])->name('reservation.update');
 Route::delete('/reservations/{id}', [ReservationController::class, 'destroy'])->name('reservation.destroy');
+Route::get('/reservation/toggle-payment/{id}', [ReservationController::class, 'togglePaymentStatus'])->name('reservation.togglePaymentStatus');
+
 
 Route::get('/clients', [AdminController::class, 'clients'])->name('admin.clients');
 Route::get('/clients/{id}', [ClientsController::class, 'show'])->name('clients.show');
 Route::get('/search', [ClientsController::class, 'search'])->name('clients.search');
-
-
-
-
-Route::get('/reservations', [ReservationController::class, 'index'])->name('reservations.index');
-Route::get('/api/reservations', [ReservationController::class, 'getReservations'])->name('reservations.get');

@@ -22,9 +22,22 @@ return new class extends Migration
             $table->string('document_number')->nullable();
             $table->string('document_issuing_place')->nullable();
             //client_groups
-            $table->unsignedBigInteger('group_id')->nullable();
-            $table->foreign('group_id')->references('id')->on('client_groups')->onDelete('set null');
-
+            $table->string('lastname_group_1', 10)->nullable();
+            $table->string('firstname_group_1', 10)->nullable();
+            $table->date('date_of_birth_group_1')->nullable();
+            $table->string('place_of_birth_group_1')->nullable();
+            $table->enum('gender_group_1', ['male', 'female', 'other'])->nullable();
+            $table->string('identity_document_group_1')->nullable();
+            $table->string('document_number_group_1')->nullable();
+            $table->string('document_issuing_place_group_1')->nullable();
+            $table->string('lastname_group_2', 10)->nullable();
+            $table->string('firstname_group_2', 10)->nullable();
+            $table->date('date_of_birth_group_2')->nullable();
+            $table->string('place_of_birth_group_2')->nullable();
+            $table->enum('gender_group_2', ['male', 'female', 'other'])->nullable();
+            $table->string('identity_document_group_2')->nullable();
+            $table->string('document_number_group_2')->nullable();
+            $table->string('document_issuing_place_group_2')->nullable();
             $table->timestamps();
         });
     }

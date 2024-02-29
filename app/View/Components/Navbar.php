@@ -24,10 +24,9 @@ class Navbar extends Component
     {
         $this->items =
             [
-                route('homepage') => 'Home',
-                route('reservation.create') => 'Add Reservaztion',
-                route('admin.clients') => 'Add Clients',
-                route('clients.search') => 'Search Users',
+                route('reservation.create') => 'Prenotazioni',
+                route('admin.clients') => 'Aggiungi Cliente',
+                route('clients.search') => 'Cerca Cliente',
 
             ];
         return view('components.navbar');

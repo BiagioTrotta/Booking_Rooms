@@ -6,7 +6,7 @@
             <!-- ... altri campi del form ... -->
             <div class="form-group col-12 d-flex flex-column align-items-center justify-content-center">
                 <label for="startDate">Seleziona Intervallo:</label>
-                <input type="text" class="w-50" id="dateRange" name="dateRange" class="form-control" placeholder="Seleziona intervallo">
+                <input type="text" class="w-50" id="dateRange" name="dateRange" class="form-control" placeholder="Seleziona intervallo" value="{{ old('dateRange', $dateRange) }}">
             </div>
             <div class="form-group col-6">
                 <label for="selectedClient">Seleziona Cliente:</label>
@@ -74,7 +74,15 @@
                         <td>€ {{ $reservation->price_tot }}</td>
                         <td>{{ \Carbon\Carbon::parse($reservation->created_at)->diffForHumans() }}</td>
                         <td>
+                            <form action="{{ route('reservation.togglePaymentStatus', $reservation->id) }}" method="GET" class="d-inline">
+                                @csrf
+                                <button type="submit" class="btn btn-sm {{ $reservation->paid ? 'btn-success' : 'btn-danger' }}">
+                                    {{ $reservation->paid ? 'Pagato' : 'Da pagare' }}
+                                </button>
+                            </form>
+
                             <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-secondary btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
+
                             <form action="{{ route('reservation.destroy', $reservation->id) }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')
