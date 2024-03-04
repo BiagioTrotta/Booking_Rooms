@@ -12,14 +12,14 @@
                 <div class="form-group col-10">
                     <input type="text" name="search" id="search" class="form-control" placeholder="Search...">
                 </div>
-                <button type="submit" class="btn btn-primary col-2">Search</button>
+                <button type="submit" class="btn btn-primary col-2">Cerca</button>
             </form>
         </div>
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>#ID</th>
                         <th>Lastname</th>
                         <th>Firstname</th>
                         <th>Email</th>

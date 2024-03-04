@@ -1,5 +1,5 @@
- <div class="container mb-5">
-     <h1 class="bg-dark text-white">Nuova Prenotazione</h1>
+ <div class="container my-5">
+     <h1 class="bg-dark text-white rounded px-1">Nuova Prenotazione</h1>
      <form class="row" action="{{ route('reservation.store') }}" method="POST">
          @csrf
          <div class="form-group col-4">

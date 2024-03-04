@@ -17,12 +17,19 @@ class ReservationController extends Controller
 
     public function create(Request $request)
     {
-        $title = 'Add Reservation';
+        $title = 'Prenotazioni';
         $clients = Client::all();
         $rooms = Room::all();
         $selectedClient = $request->input('selectedClient');
         $selectedRoom = $request->input('selectedRoom');
         $dateRange = $request->input('dateRange');
+
+        // Costruisci la query string
+        $queryString = http_build_query([
+            'selectedClient' => $selectedClient,
+            'selectedRoom' => $selectedRoom,
+            'dateRange' => $dateRange,
+        ]);
 
 
         // Inizializza le variabili $startDate e $endDate con valori predefiniti
@@ -63,8 +70,9 @@ class ReservationController extends Controller
         }
 
         $query = Reservation::with(['client', 'room'])
-            ->orderBy('check_in')
-            ->orderBy('room_id');
+        ->select('id', 'client_id', 'room_id', 'beds', 'check_in', 'check_out', 'price', 'price_tot', 'paid')
+        ->orderBy('check_in')
+        ->orderBy('room_id');
 
         if ($startDate && $endDate) {
             $query->where(function ($query) use ($startDate, $endDate) {
@@ -84,9 +92,9 @@ class ReservationController extends Controller
         }
 
 
-        $reservations = $query->get();
+        $reservations = $query->paginate(8)->withQueryString();
 
-        return view('reservations.create', compact('title', 'clients', 'rooms', 'reservations', 'selectedMonth', 'selectedClient', 'selectedRoom', 'dateRange'));
+        return view('reservations.create', compact('title', 'clients', 'rooms', 'reservations', 'selectedMonth', 'selectedClient', 'selectedRoom', 'dateRange', 'queryString'));
     }
 
 
@@ -167,34 +175,6 @@ class ReservationController extends Controller
 
         return redirect()->route('reservation.create')->with('success', 'Prenotazione effettuata con successo!');
     }
-
-    public function togglePaymentStatus($reservationId)
-    {
-        $reservation = Reservation::find($reservationId);
-
-        if ($reservation) {
-            // Cambia lo stato del pagamento
-            $reservation->paid = !$reservation->paid;
-            $reservation->save();
-        }
-
-        if ($reservation->paid) {
-            return redirect()->back()->with('success', 'Prenotazione pagata!');
-        } else {
-            return redirect()->back()->with('success', 'Prenotazione da pagare!');
-        };
-    }
-
-    public function edit($id)
-    {
-        $title = 'Edit Reservation';
-        $clients = Client::all();
-        $rooms = Room::all();
-        $reservation = Reservation::findOrFail($id);
-
-        return view('reservations.edit', compact('title', 'clients', 'rooms', 'reservation'));
-    }
-
     public function update(Request $request, $id)
     {
         $reservation = Reservation::findOrFail($id);
@@ -298,6 +278,34 @@ class ReservationController extends Controller
 
         return redirect()->route('reservation.create')->with('success', 'Prenotazione aggiornata con successo!');
     }
+
+    public function togglePaymentStatus($reservationId)
+    {
+        $reservation = Reservation::find($reservationId);
+
+        if ($reservation) {
+            // Cambia lo stato del pagamento
+            $reservation->paid = !$reservation->paid;
+            $reservation->save();
+        }
+
+        if ($reservation->paid) {
+            return redirect()->back()->with('success', 'Prenotazione pagata!');
+        } else {
+            return redirect()->back()->with('success', 'Prenotazione da pagare!');
+        };
+    }
+
+    public function edit($id)
+    {
+        $title = 'Modifica Prenotazione';
+        $clients = Client::all();
+        $rooms = Room::all();
+        $reservation = Reservation::findOrFail($id);
+
+        return view('reservations.edit', compact('title', 'clients', 'rooms', 'reservation'));
+    }
+
 
     public function destroy($id)
     {

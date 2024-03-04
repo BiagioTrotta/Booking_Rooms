@@ -1,7 +1,7 @@
 <div>
     <div class="container mb-5">
         <!-- Selettore delle date con Flatpickr -->
-        <h1 class="bg-dark text-white">Filtra Prenotazioni</h1>
+        <h1 class="bg-dark text-white rounded px-1">Filtra Prenotazioni</h1>
         <form class="row" action="{{ route('reservation.create') }}" method="GET">
             <!-- ... altri campi del form ... -->
             <div class="form-group col-12 d-flex flex-column align-items-center justify-content-center">
@@ -32,16 +32,16 @@
             </div>
             <div class="col-12 d-flex align-items-end justify-content-center">
                 <button type="submit" class="btn btn-primary mt-3 w-25">Filtra</button>
-                <a href="{{ route('reservation.create') }}" class="btn btn-secondary mt-3 w-25">Reset</a>
+                <a href="{{ route('reservation.create') }}" class="btn btn-secondary mt-3 w-25">Resetta</a>
             </div>
         </form>
     </div>
 
     <div class="container mb-5">
         @if ($dateRange)
-        <h1 class="bg-dark text-white">Reservations - {{ \Carbon\Carbon::parse(explode(' to ', $dateRange)[0])->format('F') }}</h1>
+        <h1 class="bg-dark text-white rounded px-1">Prenotazioni - {{ \Carbon\Carbon::parse(explode(' to ', $dateRange)[0])->format('F') }}</h1>
         @else
-        <h1 class="bg-dark text-white">Reservations - All</h1>
+        <h1 class="bg-dark text-white rounded px-1">Tutte le Prenotazioni</h1>
         @endif
         <div class="table-responsive">
             <table class="table table-bordered table-striped">
@@ -94,5 +94,10 @@
                 </tbody>
             </table>
         </div>
+        @if ($dateRange)
+        <h1 class="bg-dark text-white">Reservations - {{ \Carbon\Carbon::parse(explode(' to ', $dateRange)[0])->format('F') }}</h1>
+        @endif
+        <div class="d-flex justify-content-center">
+            {{ $reservations->links() }} <!-- Aggiunge i link di paginazione -->
+        </div>
     </div>
-</div>

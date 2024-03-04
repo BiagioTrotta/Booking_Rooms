@@ -9,7 +9,7 @@ class ClientsController extends Controller
 {
     public function show($id)
     {
-        $title = 'Client Details';
+        $title = 'Dettagli Cliente';
         $client = Client::findOrFail($id);
 
         return view('clients.show', compact('title','client'));
@@ -17,7 +17,7 @@ class ClientsController extends Controller
 
     public function search(Request $request)
     {
-        $title = 'Client Search';
+        $title = 'Cerca cliente';
         $search = $request->input('search');
         $clients = Client::where('firstname', 'like', '%' . $search . '%')
             ->orWhere('lastname', 'like', '%' . $search . '%')

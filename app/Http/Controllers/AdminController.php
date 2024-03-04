@@ -8,7 +8,7 @@ class AdminController extends Controller
 {
     public function clients()
     {
-        $title = 'Add Clients';
+        $title = 'Aggiungi Cliente';
         return view('admin.clients', compact('title'));
     }
 }

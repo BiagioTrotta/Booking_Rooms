@@ -66,7 +66,7 @@
                     </div>
                 </div>
             </div>
-
+            @if($client->lastname_group_1 != null)
             <div class="col-md-8 mx-auto">
                 <div class="card">
                     <div class="card-header bg-primary text-white">
@@ -122,6 +122,7 @@
                     </div>
                 </div>
             </div>
+            @endif
 
         </div>
     </div>
