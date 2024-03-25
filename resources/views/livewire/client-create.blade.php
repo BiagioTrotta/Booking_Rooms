@@ -16,7 +16,7 @@
             <button class="btn btn-sm btn-dark" wire:click="newClient"><i class="fa-solid fa-plus"></i> Nuovo Cliente</button>
         </div>
 
-        <form wire:submit.prevent="createClient">
+        <form wire:submit.prevent="createClient" class="bg-white rounded shadow mt-2">
             <div class="form-group">
                 <label for="lastname">Cognome:</label>
                 <input type="text" wire:model="lastname" class="form-control" id="lastname">
@@ -228,7 +228,7 @@
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-dark mt-2 px-4"><i class="fa-regular fa-floppy-disk"></i> Salva</button>
+            <button type="submit" class="btn btn-dark my-3 px-4"><i class="fa-regular fa-floppy-disk"></i> Salva</button>
         </form>
     </div>
 </div>

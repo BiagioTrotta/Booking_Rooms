@@ -1,6 +1,6 @@
  <div class="container my-5">
-     <h1 class="bg-dark text-white rounded px-1">Nuova Prenotazione</h1>
-     <form class="row" action="{{ route('reservation.store') }}" method="POST">
+     <form class="row bg-white shadow rounded" action="{{ route('reservation.store') }}" method="POST">
+         <h1 class="bg-dark text-white rounded">Nuova Prenotazione</h1>
          @csrf
          <div class="form-group col-4">
              <label for="client_id">Cliente</label>
@@ -37,7 +37,7 @@
              <input type="number" step="0.00" name="price" id="price" class="form-control" value="{{ old('price', '0.00') }}" min="0">
          </div>
          <div class="col-12 d-flex align-items-center justify-content-center">
-             <button type="submit" class="btn btn-primary mt-3 w-25">Prenota</button>
+             <button type="submit" class="btn btn-primary my-3 w-25">Prenota</button>
          </div>
      </form>
  </div>

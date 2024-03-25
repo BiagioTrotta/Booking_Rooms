@@ -6,7 +6,7 @@
     </div>
     @endif
 
-    <div class="table-responsive">
+    <div class="table-responsive rounded mt-md-5">
         <table class="table table-striped">
             <thead>
                 <tr>

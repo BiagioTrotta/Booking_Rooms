@@ -279,7 +279,7 @@ class ReservationController extends Controller
         return redirect()->route('reservation.create')->with('success', 'Prenotazione aggiornata con successo!');
     }
 
-    public function togglePaymentStatus($reservationId)
+    /* public function togglePaymentStatus($reservationId)
     {
         $reservation = Reservation::find($reservationId);
 
@@ -294,7 +294,7 @@ class ReservationController extends Controller
         } else {
             return redirect()->back()->with('success', 'Prenotazione da pagare!');
         };
-    }
+    } */
 
     public function edit($id)
     {

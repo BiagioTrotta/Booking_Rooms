@@ -27,12 +27,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $user = \App\Models\User::create([
-            'name' => 'Revisor',
-            'email' => 'Revisor@example.com',
-            'password' => \Illuminate\Support\Facades\Hash::make('12345678')
-        ]);
-
-        $user = \App\Models\User::create([
             'name' => 'User1',
             'email' => 'user1@example.com',
             'password' => \Illuminate\Support\Facades\Hash::make('12345678')
@@ -81,12 +75,34 @@ class DatabaseSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             Client::create([
                 'lastname' => mb_substr($faker->lastName, 0, 10),
                 'firstname' => mb_substr($faker->firstName, 0, 10),
                 'phone' => $faker->regexify('[0-9]{10}'),
                 'email' => $faker->email,
+                'date_of_birth' => $faker->date(),
+                'place_of_birth' => $faker->city,
+                'gender' => $faker->randomElement(['male', 'female', 'other']),
+                'identity_document' => $faker->randomElement(['passport', 'driver_license', 'national_id']),
+                'document_number' => $faker->regexify('[A-Z0-9]{10}'),
+                'document_issuing_place' => $faker->city,
+                'lastname_group_1' => mb_substr($faker->lastName, 0, 10),
+                'firstname_group_1' => mb_substr($faker->firstName, 0, 10),
+                'date_of_birth_group_1' => $faker->date(),
+                'place_of_birth_group_1' => $faker->city,
+                'gender_group_1' => $faker->randomElement(['male', 'female', 'other']),
+                'identity_document_group_1' => $faker->randomElement(['passport', 'driver_license', 'national_id']),
+                'document_number_group_1' => $faker->regexify('[A-Z0-9]{10}'),
+                'document_issuing_place_group_1' => $faker->city,
+                'lastname_group_2' => mb_substr($faker->lastName, 0, 10),
+                'firstname_group_2' => mb_substr($faker->firstName, 0, 10),
+                'date_of_birth_group_2' => $faker->date(),
+                'place_of_birth_group_2' => $faker->city,
+                'gender_group_2' => $faker->randomElement(['male', 'female', 'other']),
+                'identity_document_group_2' => $faker->randomElement(['passport', 'driver_license', 'national_id']),
+                'document_number_group_2' => $faker->regexify('[A-Z0-9]{10}'),
+                'document_issuing_place_group_2' => $faker->city,
             ]);
         }
     }

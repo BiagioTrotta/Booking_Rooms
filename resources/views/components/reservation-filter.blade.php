@@ -1,16 +1,16 @@
 <div>
     <div class="container mb-5">
         <!-- Selettore delle date con Flatpickr -->
-        <h1 class="bg-dark text-white rounded px-1">Filtra Prenotazioni</h1>
-        <form class="row" action="{{ route('reservation.create') }}" method="GET">
+        <form class="row bg-white shadow rounded" action="{{ route('reservation.create') }}" method="GET">
+            <h1 class="bg-dark text-white rounded-top px-1">Filtra Prenotazioni</h1>
             <!-- ... altri campi del form ... -->
             <div class="form-group col-12 d-flex flex-column align-items-center justify-content-center">
                 <label for="startDate">Seleziona Intervallo:</label>
                 <input type="text" class="w-50" id="dateRange" name="dateRange" class="form-control" placeholder="Seleziona intervallo" value="{{ old('dateRange', $dateRange) }}">
             </div>
-            <div class="form-group col-6">
+            <div class="form-group col-md-6 d-flex flex-column align-items-center justify-content-center">
                 <label for="selectedClient">Seleziona Cliente:</label>
-                <select name="selectedClient" id="selectedClient" class="form-control">
+                <select name="selectedClient" id="selectedClient" class="form-control w-50">
                     <option value="">Tutti i Clienti</option>
                     @foreach ($clients as $client)
                     <option value="{{ $client->id }}" {{ $client->id == $selectedClient ? 'selected' : '' }}>
@@ -19,9 +19,9 @@
                     @endforeach
                 </select>
             </div>
-            <div class="form-group col-6">
+            <div class="form-group col-md-6 d-flex flex-column align-items-center justify-content-center">
                 <label for="selectedRoom">Seleziona Camera:</label>
-                <select name="selectedRoom" id="selectedRoom" class="form-control">
+                <select name="selectedRoom" id="selectedRoom" class="form-control w-50">
                     <option value="">Tutte le Camere</option>
                     @foreach ($rooms as $room)
                     <option value="{{ $room->id }}" {{ $room->id == $selectedRoom ? 'selected' : '' }}>
@@ -31,8 +31,8 @@
                 </select>
             </div>
             <div class="col-12 d-flex align-items-end justify-content-center">
-                <button type="submit" class="btn btn-primary mt-3 w-25">Filtra</button>
-                <a href="{{ route('reservation.create') }}" class="btn btn-secondary mt-3 w-25">Resetta</a>
+                <button type="submit" class="btn btn-primary my-3 w-25">Filtra</button>
+                <a href="{{ route('reservation.create') }}" class="btn btn-secondary my-3 w-25">Resetta</a>
             </div>
         </form>
     </div>
@@ -55,6 +55,7 @@
                         <th>Price per night</th>
                         <th>Price total</th>
                         <th>Create Date</th>
+                        <th>Paid</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -73,13 +74,14 @@
                         <td>€ {{ $reservation->price }}</td>
                         <td>€ {{ $reservation->price_tot }}</td>
                         <td>{{ \Carbon\Carbon::parse($reservation->created_at)->diffForHumans() }}</td>
+                        <td><livewire:toggle-payment :reservationId="$reservation->id" /></td>
                         <td>
-                            <form action="{{ route('reservation.togglePaymentStatus', $reservation->id) }}" method="GET" class="d-inline">
+                            <!-- <form action="{{ route('reservation.togglePaymentStatus', $reservation->id) }}" method="GET" class="d-inline">
                                 @csrf
                                 <button type="submit" class="btn btn-sm {{ $reservation->paid ? 'btn-success' : 'btn-danger' }}">
                                     {{ $reservation->paid ? 'Pagato' : 'Da pagare' }}
                                 </button>
-                            </form>
+                            </form> -->
 
                             <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-secondary btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
 
