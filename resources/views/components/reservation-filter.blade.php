@@ -5,11 +5,11 @@
             <h1 class="bg-dark text-white rounded-top px-1">Filtra Prenotazioni</h1>
             <!-- ... altri campi del form ... -->
             <div class="form-group col-12 d-flex flex-column align-items-center justify-content-center">
-                <label for="startDate">Seleziona Intervallo:</label>
+                <label for="startDate" class="fw-bold">Seleziona Intervallo:</label>
                 <input type="text" class="w-50" id="dateRange" name="dateRange" class="form-control" placeholder="Seleziona intervallo" value="{{ old('dateRange', $dateRange) }}">
             </div>
-            <div class="form-group col-md-6 d-flex flex-column align-items-center justify-content-center">
-                <label for="selectedClient">Seleziona Cliente:</label>
+            <div class="form-group col-12 d-flex flex-column align-items-center justify-content-center">
+                <label for="selectedClient" class="fw-bold">Seleziona Cliente:</label>
                 <select name="selectedClient" id="selectedClient" class="form-control w-50">
                     <option value="">Tutti i Clienti</option>
                     @foreach ($clients as $client)
@@ -19,8 +19,8 @@
                     @endforeach
                 </select>
             </div>
-            <div class="form-group col-md-6 d-flex flex-column align-items-center justify-content-center">
-                <label for="selectedRoom">Seleziona Camera:</label>
+            <div class="form-group col-12 d-flex flex-column align-items-center justify-content-center">
+                <label for="selectedRoom" class="fw-bold">Seleziona Camera:</label>
                 <select name="selectedRoom" id="selectedRoom" class="form-control w-50">
                     <option value="">Tutte le Camere</option>
                     @foreach ($rooms as $room)
@@ -28,6 +28,14 @@
                         {{ $room->room_number }}
                     </option>
                     @endforeach
+                </select>
+            </div>
+            <div class="form-group col-12 d-flex flex-column align-items-center justify-content-center">
+                <label for="paid" class="fw-bold">Stato Pagamento:</label>
+                <select name="paid" id="paid" class="form-control w-50">
+                    <option value="" selected>Tutti</option>
+                    <option value="1">Pagato</option>
+                    <option value="0">Non Pagato</option>
                 </select>
             </div>
             <div class="col-12 d-flex align-items-end justify-content-center">

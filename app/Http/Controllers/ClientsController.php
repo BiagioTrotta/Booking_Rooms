@@ -21,6 +21,7 @@ class ClientsController extends Controller
         $search = $request->input('search');
         $clients = Client::where('firstname', 'like', '%' . $search . '%')
             ->orWhere('lastname', 'like', '%' . $search . '%')
+            ->orWhere('phone', 'like', '%' . $search . '%')
             ->paginate(7);
         return view('clients.search', compact('title', 'clients'));
     }

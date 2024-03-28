@@ -12,11 +12,10 @@
             <x-session-alerts />
         </div>
 
-        <div class="col-12">
-            <button class="btn btn-sm btn-dark" wire:click="newClient"><i class="fa-solid fa-plus"></i> Nuovo Cliente</button>
-        </div>
-
-        <form wire:submit.prevent="createClient" class="bg-white rounded shadow mt-2">
+        <form wire:submit.prevent="createClient" class="bg-white rounded shadow mt-2 pt-2">
+            <div class="form-group">
+                <button class="btn btn-sm btn-dark" wire:click="newClient"><i class="fa-solid fa-plus"></i> Nuovo Cliente</button>
+            </div>
             <div class="form-group">
                 <label for="lastname">Cognome:</label>
                 <input type="text" wire:model="lastname" class="form-control" id="lastname">

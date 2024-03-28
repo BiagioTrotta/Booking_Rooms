@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row w-50 m-auto">
             <h1 class="fa mb-2 text-center h1 mt-4 fa">Register</h1>
-            <form method="POST" accept="/register">
+            <form method="POST" accept="/register" class="form-control">
                 @csrf
                 <div class="col-12">
                     <label for="exampleInputEmail1" class="form-label">Name</label>

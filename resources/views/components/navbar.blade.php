@@ -12,7 +12,7 @@
             </div>
             <div class="navbar-nav ms-auto text-center">
                 @guest
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown me-lg-4">
                     <a class="nav-link dropdown-toggle me-lg-4" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa-solid fa-gear fs-5"></i> Settings
                     </a>
@@ -26,7 +26,7 @@
                 </li>
                 @endguest
                 @auth
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown me-lg-5">
                     <a class="nav-link dropdown-toggle me-lg-4" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa-solid fa-gear fs-5"></i> {{$user = Auth::user()->name ?? ''}}
                     </a>

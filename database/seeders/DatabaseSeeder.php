@@ -23,12 +23,13 @@ class DatabaseSeeder extends Seeder
         $user = \App\Models\User::create([
             'name' => 'Administrator',
             'email' => 'admin@example.com',
-            'password' => \Illuminate\Support\Facades\Hash::make('12345678')
+            'password' => \Illuminate\Support\Facades\Hash::make('12345678'),
+            'is_admin' => 1,
         ]);
 
         $user = \App\Models\User::create([
-            'name' => 'User1',
-            'email' => 'user1@example.com',
+            'name' => 'User',
+            'email' => 'user@example.com',
             'password' => \Illuminate\Support\Facades\Hash::make('12345678')
         ]);
         $user = \App\Models\User::create([

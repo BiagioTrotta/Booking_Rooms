@@ -1,12 +1,12 @@
 <x-main>
-    <x-slot:title>{{ $title }}</x-slot:title>
-    <div class="container">
+    <x-slot:title>Users</x-slot:title>
+    <div class="container mt-5">
         <div class="row">
             <div class="col-12 col-lg-5 mt-4">
-                <livewire:client-create />
+                <livewire:user-form />
             </div>
             <div class="col-12 col-lg-7 mt-4">
-                <livewire:client-list />
+                <livewire:user-list />
             </div>
         </div>
     </div>

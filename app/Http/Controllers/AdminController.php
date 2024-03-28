@@ -11,4 +11,10 @@ class AdminController extends Controller
         $title = 'Aggiungi Cliente';
         return view('admin.clients', compact('title'));
     }
+
+    public function users()
+    {
+        $title = 'Aggiungi Utente';
+        return view('admin.users', compact('title'));
+    }
 }

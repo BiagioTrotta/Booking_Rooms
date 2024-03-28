@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row w-50 m-auto">
             <h1 class="fa mb-2 text-center h1 mt-4 fa">Login</h1>
-            <form method="POST" accept="/login">
+            <form method="POST" accept="/login" class="form-control">
                 @csrf
                 <div class="col-12">
                     <label for="exampleInputEmail1" class="form-label">Email</label>

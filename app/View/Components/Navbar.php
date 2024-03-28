@@ -3,8 +3,9 @@
 namespace App\View\Components;
 
 use Closure;
-use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
+use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 
 class Navbar extends Component
 {
@@ -22,13 +23,19 @@ class Navbar extends Component
      */
     public function render(): View|Closure|string
     {
-        $this->items =
-            [
+
+        if (Auth::check() && Auth::user()->is_admin) {
+            $this->items = [
                 route('reservation.create') => 'Prenotazioni',
                 route('admin.clients') => 'Aggiungi Cliente',
                 route('clients.search') => 'Cerca Cliente',
-
+                route('admin.users') => 'Aggiungi Utente',
             ];
+        } else {
+            $this->items = [
+                route('homepage') => 'Homepage',
+            ];
+        }
         return view('components.navbar');
     }
 }

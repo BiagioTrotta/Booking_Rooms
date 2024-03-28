@@ -20,8 +20,9 @@
                 <thead>
                     <tr>
                         <th>#ID</th>
-                        <th>Lastname</th>
-                        <th>Firstname</th>
+                        <th>Cognome</th>
+                        <th>Nome</th>
+                        <th>Numero</th>
                         <th>Email</th>
                         <th>Action</th>
                     </tr>
@@ -32,6 +33,7 @@
                         <td>{{ $client->id }}</td>
                         <td><a href="{{ route('clients.show', $client->id) }}">{{ $client->lastname }}</a></td>
                         <td>{{ $client->firstname }}</td>
+                        <td>{{ $client->phone }}</td>
                         <td>{{ $client->email }}</td>
                         <td>
                             <a href="{{ route('clients.show', $client->id) }}" class="btn btn-sm btn-dark"><i class="fa-solid fa-magnifying-glass fa-sm"></i></a>

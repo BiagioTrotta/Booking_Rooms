@@ -23,12 +23,14 @@ class ReservationController extends Controller
         $selectedClient = $request->input('selectedClient');
         $selectedRoom = $request->input('selectedRoom');
         $dateRange = $request->input('dateRange');
+        $paid = $request->input('paid');
 
         // Costruisci la query string
         $queryString = http_build_query([
             'selectedClient' => $selectedClient,
             'selectedRoom' => $selectedRoom,
             'dateRange' => $dateRange,
+            'paid' => $paid,
         ]);
 
 
@@ -85,6 +87,10 @@ class ReservationController extends Controller
             $query->where('client_id', $selectedClient);
         }
 
+        if ($paid !== null && $paid !== '') {
+            $query->where('paid', $paid);
+        }
+
         if ($selectedRoom) {
             $query->whereHas('room', function ($query) use ($selectedRoom) {
                 $query->where('id', $selectedRoom);
@@ -94,7 +100,7 @@ class ReservationController extends Controller
 
         $reservations = $query->paginate(8)->withQueryString();
 
-        return view('reservations.create', compact('title', 'clients', 'rooms', 'reservations', 'selectedMonth', 'selectedClient', 'selectedRoom', 'dateRange', 'queryString'));
+        return view('reservations.create', compact('title', 'clients', 'rooms', 'reservations', 'paid', 'selectedMonth', 'selectedClient', 'selectedRoom', 'dateRange', 'queryString'));
     }
 
 
@@ -279,22 +285,6 @@ class ReservationController extends Controller
         return redirect()->route('reservation.create')->with('success', 'Prenotazione aggiornata con successo!');
     }
 
-    /* public function togglePaymentStatus($reservationId)
-    {
-        $reservation = Reservation::find($reservationId);
-
-        if ($reservation) {
-            // Cambia lo stato del pagamento
-            $reservation->paid = !$reservation->paid;
-            $reservation->save();
-        }
-
-        if ($reservation->paid) {
-            return redirect()->back()->with('success', 'Prenotazione pagata!');
-        } else {
-            return redirect()->back()->with('success', 'Prenotazione da pagare!');
-        };
-    } */
 
     public function edit($id)
     {
