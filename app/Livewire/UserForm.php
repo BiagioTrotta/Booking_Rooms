@@ -10,6 +10,7 @@ class UserForm extends Component
 {
     // Definizione delle proprietà pubbliche per i dati del modulo
     public $isAdmin;
+    public $isManager;
     public $name;
     public $email;
     public $password;
@@ -33,6 +34,7 @@ class UserForm extends Component
         'email' => 'required|email',
         'password' => 'nullable|min:8',
         'isAdmin' => 'nullable|boolean',
+        'isManager' => 'nullable|boolean',
     ];
 
     // Metodo richiamato quando si aggiorna una proprietà del componente
@@ -52,13 +54,35 @@ class UserForm extends Component
         // Se esiste già un utente con la stessa email, aggiorna i dati di quell'utente invece di creare un nuovo utente
         if ($existingUser) {
             $existingUser->name = $this->name;
+            // Verifica se ci sono più di un amministratore nel sistema
+            $adminCount = User::where('is_admin', true)->count();
+
+            if ($adminCount <= 1 && $this->user->is_admin && $this->isAdmin != true) {
+                // Se questo è l'unico amministratore presente nel sistema, disabilita la modifica del campo isAdmin
+                $this->isAdmin = true;
+                session()->flash('error', 'L\'ultimo amministratore presente nel sistema non può essere disabilitato');
+            }
+
             $existingUser->is_admin = $this->isAdmin;
+
+            if ($this->isAdmin) {
+                // Se l'utente è un amministratore, impostalo anche come manager
+                $this->isManager = true;
+            }
+
+            if ($this->isManager) {
+                // Se l'utente è un amministratore, impostalo anche come manager
+                $this->isAdmin = false;
+            }
+
+
+            $existingUser->is_manager = $this->isManager;
             if ($this->password) {
                 $existingUser->password = bcrypt($this->password);
             }
             $existingUser->save();
 
-            session()->flash('success', 'User successfully updated');
+            session()->flash('success', 'Utente aggiornato con successo');
         } else {
             // Altrimenti, crea un nuovo utente
             $user = new User;
@@ -66,6 +90,16 @@ class UserForm extends Component
             $user->email = $this->email;
             $user->password = bcrypt($this->password);
             $user->is_admin = $this->isAdmin ? true : ($this->isAdmin === '' ? false : $this->isAdmin);
+            $user->is_manager = $this->isManager ? true : ($this->isManager === '' ? false : $this->isManager);
+            if($this->isAdmin){
+                $user->is_manager = true;
+            }
+
+            if ($this->isManager) {
+                // Se l'utente è un amministratore, impostalo anche come manager
+                $user->is_admin = false;
+            }
+
             $user->save();
 
             session()->flash('success', 'User successfully saved');
@@ -90,6 +124,7 @@ class UserForm extends Component
         $this->email = '';
         $this->password = '';
         $this->isAdmin = '';
+        $this->isManager= '';
     }
 
     // Metodo per caricare i dati dell'utente da modificare
@@ -99,6 +134,7 @@ class UserForm extends Component
         $this->name = $this->user->name;
         $this->email = $this->user->email;
         $this->isAdmin = $this->user->is_admin;
+        $this->isManager = $this->user->is_manager;
     }
 
     // Metodo per renderizzare la vista del componente

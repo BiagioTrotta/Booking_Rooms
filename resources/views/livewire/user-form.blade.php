@@ -4,6 +4,11 @@
         {{ session('success') }}
     </div>
     @endif
+    @if(session()->has('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+    @endif
     <div class="row g-3">
         <div class="col-12">
             <h3 class="fa">Form utente</h3>
@@ -36,6 +41,11 @@
                 <label for="isAdmin">Admin</label>
                 <input type="checkbox" class="form-check-input" wire:model="isAdmin" @if($isAdmin) checked @endif>
                 @error('isAdmin')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+                <label for="isManager">Manager</label>
+                <input type="checkbox" class="form-check-input" wire:model="isManager" @if($isManager) checked @endif>
+                @error('isManager')
                 <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>

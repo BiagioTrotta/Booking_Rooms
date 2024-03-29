@@ -9,7 +9,7 @@ use App\Http\Controllers\ClientsController;
 
 Route::get('/', [PageController::class, 'index'])->name('homepage');
 
-Route::middleware(['auth', 'isAdmin'])->group(function () {
+Route::middleware(['auth', 'isManager'])->group(function () {
     // Rotte per le prenotazioni
     Route::get('/reservation/create', [ReservationController::class, 'create'])->name('reservation.create');
     Route::post('/reservation/store', [ReservationController::class, 'store'])->name('reservation.store');
@@ -23,6 +23,10 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/clients/{id}', [ClientsController::class, 'show'])->name('clients.show');
     Route::get('/search', [ClientsController::class, 'search'])->name('clients.search');
 
+
+});
+
+Route::middleware(['auth', 'isAdmin'])->group(function () {
     // Rotte per gli utenti
     Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
 });

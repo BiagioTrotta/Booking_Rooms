@@ -24,18 +24,33 @@ class Navbar extends Component
     public function render(): View|Closure|string
     {
 
-        if (Auth::check() && Auth::user()->is_admin) {
-            $this->items = [
-                route('reservation.create') => 'Prenotazioni',
-                route('admin.clients') => 'Aggiungi Cliente',
-                route('clients.search') => 'Cerca Cliente',
-                route('admin.users') => 'Aggiungi Utente',
-            ];
-        } else {
-            $this->items = [
+        $items = [];
+
+        if (Auth::check()) {
+            if (Auth::user()->is_admin) {
+                $items = [
+                    route('reservation.create') => 'Prenotazioni',
+                    route('admin.clients') => 'Aggiungi Cliente',
+                    route('clients.search') => 'Cerca Cliente',
+                    route('admin.users') => 'Aggiungi Utente',
+                ];
+            } elseif (Auth::user()->is_manager) {
+                $items = [
+                    route('reservation.create') => 'Prenotazioni',
+                    route('admin.clients') => 'Aggiungi Cliente',
+                    route('clients.search') => 'Cerca Cliente',
+                ];
+            }
+        }
+
+        // Se non c'è un utente autenticato o se l'utente non è né admin né manager
+        if (empty($items)) {
+            $items = [
                 route('homepage') => 'Homepage',
             ];
         }
+
+        $this->items = $items;
         return view('components.navbar');
     }
 }

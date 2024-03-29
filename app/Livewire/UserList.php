@@ -33,9 +33,25 @@ class UserList extends Component
     public function deleteUser($user_id)
     {
         $user = User::find($user_id);
-        $user->delete();
 
-        session()->flash('success', 'User successfully deleted');
+        if ($user->is_admin) {
+            // Verifica se l'utente è un amministratore
+            $adminCount = User::where('is_admin', true)->count();
+
+            if ($adminCount > 1) {
+                // Rimuovi l'utente solo se ci sono più di un amministratore nel sistema
+                $user->delete();
+                session()->flash('success', 'Utente eliminato con successo');
+            } else {
+                // Altrimenti, restituisci un errore o un avviso che indica che l'ultimo amministratore non può essere rimosso
+                session()->flash('error', 'Non puoi eliminare l\'unico amministratore presente');
+            }
+        } else {
+            // Se l'utente non è un amministratore, puoi eliminarlo direttamente
+            $user->delete();
+            session()->flash('success', 'Utente eliminato con successo');
+        }
+
         $this->loadUsers();
     }
 

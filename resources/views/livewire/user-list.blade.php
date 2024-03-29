@@ -8,6 +8,11 @@
             {{session('success')}}
         </div>
         @endif
+        @if(session()->has('error'))
+        <div class="alert alert-danger">
+            {{session('error')}}
+        </div>
+        @endif
     </div>
     <div class="table-responsive rounded">
         <table class="table table-striped">
@@ -15,6 +20,7 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th class="text-center">Admin</th>
+                <th class="text-center">Manager</th>
                 <th></th>
             </thead>
             <tbody>
@@ -24,6 +30,13 @@
                     <td>{{ $user->email }}</td>
                     <td class="text-center">
                         @if($user->is_admin)
+                        <i class="fa-solid fa-check text-success"></i>
+                        @else
+                        <i class="fa-solid fa-xmark"></i>
+                        @endif
+                    </td>
+                    <td class="text-center">
+                        @if($user->is_manager)
                         <i class="fa-solid fa-check text-success"></i>
                         @else
                         <i class="fa-solid fa-xmark"></i>
