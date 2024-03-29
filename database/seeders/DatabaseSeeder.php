@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@example.com',
             'password' => \Illuminate\Support\Facades\Hash::make('12345678'),
             'is_admin' => 1,
+            'is_manager' => 1,
         ]);
 
         $user = \App\Models\User::create([
