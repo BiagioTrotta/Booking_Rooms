@@ -202,7 +202,7 @@ CREATE TABLE `reservations` (
   KEY `reservations_client_id_foreign` (`client_id`),
   CONSTRAINT `reservations_client_id_foreign` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`),
   CONSTRAINT `reservations_room_id_foreign` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -211,7 +211,7 @@ CREATE TABLE `reservations` (
 
 LOCK TABLES `reservations` WRITE;
 /*!40000 ALTER TABLE `reservations` DISABLE KEYS */;
-INSERT INTO `reservations` VALUES (1,1,5,2,'2024-03-30','2024-04-03',55.00,220.00,1,'2024-03-30 19:21:50','2024-03-30 19:22:24'),(2,5,12,3,'2024-03-31','2024-04-04',2.00,8.00,0,'2024-03-31 08:55:37','2024-03-31 08:55:37');
+INSERT INTO `reservations` VALUES (1,1,5,2,'2024-03-30','2024-04-03',55.00,220.00,1,'2024-03-30 19:21:50','2024-03-30 19:22:24'),(2,5,12,3,'2024-03-31','2024-04-04',2.00,8.00,0,'2024-03-31 08:55:37','2024-03-31 08:55:37'),(3,7,6,4,'2024-03-31','2024-04-18',33.00,594.00,1,'2024-03-31 13:31:17','2024-03-31 13:31:23');
 /*!40000 ALTER TABLE `reservations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -286,4 +286,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-03-31  8:56:49
+-- Dump completed on 2024-03-31 13:31:57
