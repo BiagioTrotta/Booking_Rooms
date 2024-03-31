@@ -55,16 +55,16 @@
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th>Client</th>
-                        <th>Nr. Room</th>
-                        <th>Beds</th>
+                        <th>Clienti</th>
+                        <th>N. Camera</th>
+                        <th>P. Letto</th>
                         <th>Check-in</th>
                         <th>Check-out</th>
-                        <th>Price per night</th>
-                        <th>Price total</th>
-                        <th>Create Date</th>
-                        <th>Paid</th>
-                        <th>Action</th>
+                        <th>Prezzo notte</th>
+                        <th>Prezzo totale</th>
+                        <th>Data crezione</th>
+                        <th>Pagamento</th>
+                        <th>Azioni</th>
                     </tr>
                 </thead>
                 <tbody>
