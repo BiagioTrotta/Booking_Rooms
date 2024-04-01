@@ -10,11 +10,10 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Lastname</th>
-                    <th>Firstname</th>
-                    <th>Email</th>
-                    <th>Action</th>
+                    <th>Cognome</th>
+                    <th>Nome</th>
+                    <th>Numero</th>
+                    <th>Azioni</th>
                 </tr>
             </thead>
             <tbody class="table-group-divider">
@@ -25,10 +24,9 @@
                 <button class="btn btn-sm btn-secondary" wire:click="cancelConfirmation()">Annulla</button>
                 @endif
                 <tr>
-                    <td>{{ $client->id }}</td>
                     <td><a href="{{ route('clients.show', $client->id) }}">{{ $client->lastname }}</a></td>
                     <td>{{ $client->firstname }}</td>
-                    <td>{{ $client->email }}</td>
+                    <td>{{ $client->phone }}</td>
                     <td class="text-center">
                         <button class="btn btn-sm btn-dark fa" wire:click="editClient({{ $client->id }})"><i class="fa-solid fa-pen-to-square"></i></button>
                         <!-- Aggiungi il pulsante di conferma eliminazione -->

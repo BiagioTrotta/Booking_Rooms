@@ -2,7 +2,7 @@
     <x-slot:title>Edit Reservation</x-slot:title>
     <div class="container">
         <h1>Modifica Prenotazione</h1>
-        <a href="{{ route('reservation.create') }}" class="btn btn-dark my-3"><i class="fa-solid fa-arrow-rotate-left"></i> Back</a>
+        <a href="{{ route('reservation.create') }}" class="btn btn-dark my-3"><i class="fa-solid fa-arrow-rotate-left"></i> Indietro</a>
         @if ($errors->any())
         <x-error-messages :errors="$errors" />
         @endif

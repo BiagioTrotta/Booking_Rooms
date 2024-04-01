@@ -33,7 +33,7 @@
              <input type="date" name="check_out" id="check_out" class="form-control" value="{{ \Carbon\Carbon::now()->addDay()->format('Y-m-d') }}">
          </div>
          <div class="form-group col-4">
-             <label for="price" class="fw-bold">Prezzo a notte</label>
+             <label for="price" class="fw-bold">Prezzo notte</label>
              <input type="number" step="0.00" name="price" id="price" class="form-control" value="{{ old('price', '0.00') }}" min="0">
          </div>
          <div class="col-12 d-flex align-items-center justify-content-center">
