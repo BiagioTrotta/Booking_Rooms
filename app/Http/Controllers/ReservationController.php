@@ -73,6 +73,7 @@ class ReservationController extends Controller
 
         $query = Reservation::with(['client', 'room'])
         ->select('id', 'client_id', 'room_id', 'beds', 'check_in', 'check_out', 'price', 'price_tot', 'paid')
+        ->selectRaw("DATE_FORMAT(created_at, '%d/%m/%Y %H:%i:%s') as formatted_created_at")//diffforhumans
         ->orderBy('check_in')
         ->orderBy('room_id');
 
@@ -116,13 +117,13 @@ class ReservationController extends Controller
             'check_in' => [
                 'required',
                 'date',
-                'after_or_equal:' . now()->format('Y-m-d'),
+                'after_or_equal:' . now()->format('d-m-Y'),
             ],
             'check_out' => [
                 'required',
                 'date',
                 'after:check_in',
-                'after_or_equal:' . now()->format('Y-m-d'),
+                'after_or_equal:' . now()->format('d-m-Y'),
             ],
             'beds' => [
                 'required',

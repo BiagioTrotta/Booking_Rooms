@@ -81,16 +81,11 @@
                         <td>{{ \Carbon\Carbon::parse($reservation->check_out)->format('d/m/Y') }}</td>
                         <td>€ {{ $reservation->price }}</td>
                         <td>€ {{ $reservation->price_tot }}</td>
-                        <td>{{ \Carbon\Carbon::parse($reservation->created_at)->diffForHumans() }}</td>
+                        <td>
+                            {{ \Carbon\Carbon::createFromFormat('d/m/Y H:i:s', $reservation->formatted_created_at)->diffForHumans() }}
+                        </td>
                         <td><livewire:toggle-payment :reservationId="$reservation->id" /></td>
                         <td>
-                            <!-- <form action="{{ route('reservation.togglePaymentStatus', $reservation->id) }}" method="GET" class="d-inline">
-                                @csrf
-                                <button type="submit" class="btn btn-sm {{ $reservation->paid ? 'btn-success' : 'btn-danger' }}">
-                                    {{ $reservation->paid ? 'Pagato' : 'Da pagare' }}
-                                </button>
-                            </form> -->
-
                             <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-secondary btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
 
                             <form action="{{ route('reservation.destroy', $reservation->id) }}" method="POST" class="d-inline">
