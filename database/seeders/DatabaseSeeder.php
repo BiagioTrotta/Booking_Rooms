@@ -14,9 +14,9 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
-        $this->users();
+        //$this->users();
         $this->rooms();
-        $this->clients();
+        //$this->clients();
     }
 
     private function users()
