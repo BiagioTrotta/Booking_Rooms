@@ -191,13 +191,11 @@ class ReservationController extends Controller
             'check_in' => [
                 'required',
                 'date',
-                'after_or_equal:' . now()->format('Y-m-d'),
             ],
             'check_out' => [
                 'required',
                 'date',
                 'after:check_in',
-                'after_or_equal:' . now()->format('Y-m-d'),
             ],
             'beds' => [
                 'required',
@@ -237,13 +235,11 @@ class ReservationController extends Controller
             'check_in' => [
                 'required',
                 'date',
-                'after_or_equal:' . now()->format('Y-m-d'),
             ],
             'check_out' => [
                 'required',
                 'date',
                 'after:check_in',
-                'after_or_equal:' . now()->format('Y-m-d'),
             ],
             'beds' => [
                 'required',

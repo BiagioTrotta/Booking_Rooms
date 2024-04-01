@@ -34,7 +34,7 @@
          </div>
          <div class="form-group col-4">
              <label for="price" class="fw-bold">Prezzo notte</label>
-             <input type="number" step="0.00" name="price" id="price" class="form-control" value="{{ old('price', '0.00') }}" min="0">
+             <input type="number" step="0.00" name="price" id="price" class="form-control" value="{{ old('price', '0.00') }}" min="0" max="999">
          </div>
          <div class="col-12 d-flex align-items-center justify-content-center">
              <button type="submit" class="btn btn-primary my-3 w-25">Prenota</button>
