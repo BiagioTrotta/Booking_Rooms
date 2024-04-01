@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Client;
+use App\Models\Room;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -67,6 +68,32 @@ class DatabaseSeeder extends Seeder
             DB::table('rooms')->insert([
                 'room_number' => $i,
                 'beds' => 2, // Numero di letti
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+
+        $numberOfRooms = 5;
+
+        for ($i = 0; $i < $numberOfRooms; $i++) {
+            $roomNumber = chr(65 + $i); // Converti l'indice in un carattere alfabetico (A, B, C, ...)
+
+            Room::create([
+                'room_number' => $roomNumber,
+                'beds' => 2,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+
+        $numberOfRooms = 3;
+
+        for ($i = 1; $i <= $numberOfRooms; $i++) {
+            $roomNumber = str_pad($i, 2, '0', STR_PAD_LEFT); // Aggiungi lo zero iniziale se necessario
+
+            Room::create([
+                'room_number' => $roomNumber,
+                'beds' => 2,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
