@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         //$this->users();
         $this->rooms();
-        //$this->clients();
+        $this->clients();
     }
 
     private function users()

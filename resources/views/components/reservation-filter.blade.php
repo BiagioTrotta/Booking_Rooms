@@ -4,13 +4,13 @@
         <form class="row bg-white shadow rounded" action="{{ route('reservation.create') }}" method="GET">
             <h1 class="bg-dark text-white rounded-top px-1">Filtra Prenotazioni</h1>
             <!-- ... altri campi del form ... -->
-            <div class="form-group col-12 d-flex flex-column align-items-center justify-content-center">
+            <div class="form-group col-12 col-md-6 d-flex flex-column align-items-center justify-content-center">
                 <label for="startDate" class="fw-bold">Seleziona Intervallo:</label>
-                <input type="text" class="w-50" id="dateRange" name="dateRange" class="form-control" placeholder="Seleziona intervallo" value="{{ old('dateRange', $dateRange) }}">
+                <input type="text" class="w-75" id="dateRange" name="dateRange" class="form-control" placeholder="Seleziona intervallo" value="{{ old('dateRange', $dateRange) }}">
             </div>
-            <div class="form-group col-12 d-flex flex-column align-items-center justify-content-center">
+            <div class="form-group col-12 col-md-6 d-flex flex-column align-items-center justify-content-center">
                 <label for="selectedClient" class="fw-bold">Seleziona Cliente:</label>
-                <select name="selectedClient" id="selectedClient" class="form-control w-50">
+                <select name="selectedClient" id="selectedClient" class="form-control w-75">
                     <option value="">Tutti i Clienti</option>
                     @foreach ($clients as $client)
                     <option value="{{ $client->id }}" {{ $client->id == $selectedClient ? 'selected' : '' }}>
@@ -19,9 +19,9 @@
                     @endforeach
                 </select>
             </div>
-            <div class="form-group col-12 d-flex flex-column align-items-center justify-content-center">
+            <div class="form-group col-12 col-md-6 d-flex flex-column align-items-center justify-content-center">
                 <label for="selectedRoom" class="fw-bold">Seleziona Camera:</label>
-                <select name="selectedRoom" id="selectedRoom" class="form-control w-50">
+                <select name="selectedRoom" id="selectedRoom" class="form-control w-75">
                     <option value="">Tutte le Camere</option>
                     @foreach ($rooms as $room)
                     <option value="{{ $room->id }}" {{ $room->id == $selectedRoom ? 'selected' : '' }}>
@@ -30,9 +30,9 @@
                     @endforeach
                 </select>
             </div>
-            <div class="form-group col-12 d-flex flex-column align-items-center justify-content-center">
+            <div class="form-group col-12 col-md-6 d-flex flex-column align-items-center justify-content-center">
                 <label for="paid" class="fw-bold">Stato Pagamento:</label>
-                <select name="paid" id="paid" class="form-control w-50">
+                <select name="paid" id="paid" class="form-control w-75">
                     <option value="" selected>Tutti</option>
                     <option value="1">Pagato</option>
                     <option value="0">Non Pagato</option>
