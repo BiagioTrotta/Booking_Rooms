@@ -71,6 +71,7 @@ class ReservationController extends Controller
             $endDate = Carbon::now()->endOfYear()->format('d-m-Y');
         }
 
+
         $query = Reservation::with(['client', 'room'])
         ->select('id', 'client_id', 'room_id', 'beds', 'check_in', 'check_out', 'price', 'price_tot', 'paid')
         ->selectRaw("DATE_FORMAT(created_at, '%d/%m/%Y %H:%i:%s') as formatted_created_at")//diffforhumans
@@ -182,6 +183,8 @@ class ReservationController extends Controller
 
         return redirect()->route('reservation.create')->with('success', 'Prenotazione effettuata con successo!');
     }
+
+
     public function update(Request $request, $id)
     {
         $reservation = Reservation::findOrFail($id);

@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
-        //$this->users();
+        $this->users();
         $this->rooms();
         $this->clients();
     }
@@ -24,19 +24,20 @@ class DatabaseSeeder extends Seeder
         $user = \App\Models\User::create([
             'name' => 'Administrator',
             'email' => 'admin@example.com',
-            'password' => \Illuminate\Support\Facades\Hash::make('12345678'),
+            'password' => \Illuminate\Support\Facades\Hash::make('06092023'),
             'is_admin' => 1,
             'is_manager' => 1,
         ]);
 
         $user = \App\Models\User::create([
-            'name' => 'User',
-            'email' => 'user@example.com',
-            'password' => \Illuminate\Support\Facades\Hash::make('12345678')
+            'name' => 'Manager',
+            'email' => 'menager@example.com',
+            'password' => \Illuminate\Support\Facades\Hash::make('12345678'),
+            'is_manager' => 1,
         ]);
         $user = \App\Models\User::create([
-            'name' => 'User2',
-            'email' => 'user2@example.com',
+            'name' => 'User',
+            'email' => 'user@example.com',
             'password' => \Illuminate\Support\Facades\Hash::make('12345678')
         ]);
     }
@@ -104,7 +105,7 @@ class DatabaseSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 3; $i++) {
             Client::create([
                 'lastname' => mb_substr($faker->lastName, 0, 10),
                 'firstname' => mb_substr($faker->firstName, 0, 10),
