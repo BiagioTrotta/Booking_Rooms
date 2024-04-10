@@ -130,6 +130,7 @@ class ClientCreate extends Component
 
             // Verifica e formatta la data di nascita del gruppo 2
             $date_of_birth_group_2 = !empty($this->date_of_birth_group_2) ? date('Y-m-d', strtotime($this->date_of_birth_group_2)) : null;
+
             // Creazione di un nuovo cliente
             Client::create([
                 'lastname' => $this->lastname,
@@ -137,27 +138,27 @@ class ClientCreate extends Component
                 'email' => $this->email,
                 'phone' => $this->phone,
                 //Others
-                'date_of_birth' => $this->date_of_birth,
+                'date_of_birth' => $this->date_of_birth ? date('Y-m-d', strtotime($this->date_of_birth)) : null,
                 'place_of_birth' => $this->place_of_birth,
-                'gender' => $this->gender,
+                'gender' => $this->gender ? $this->gender : null,
                 'identity_document' => $this->identity_document,
                 'document_number' => $this->document_number,
                 'document_issuing_place' => $this->document_issuing_place,
                 // Group_1
                 'lastname_group_1' => $this->lastname_group_1,
                 'firstname_group_1' => $this->firstname_group_1,
-                'date_of_birth_group_1' => $date_of_birth_group_1,
+                'date_of_birth_group_1' => $date_of_birth_group_1 ? date('Y-m-d', strtotime($date_of_birth_group_1)) : null,
                 'place_of_birth_group_1' => $this->place_of_birth_group_1,
-                'gender_group_1' => $this->gender_group_1,
+                'gender_group_1' => $this->gender_group_1 ? $this->gender_group_1 : null,
                 'identity_document_group_1' => $this->identity_document_group_1,
                 'document_number_group_1' => $this->document_number_group_1,
                 'document_issuing_place_group_1' => $this->document_issuing_place_group_1,
                 // Group_2
                 'lastname_group_2' => $this->lastname_group_2,
                 'firstname_group_2' => $this->firstname_group_2,
-                'date_of_birth_group_2' => $date_of_birth_group_2,
+                'date_of_birth_group_2' => $date_of_birth_group_2 ? date('Y-m-d', strtotime($date_of_birth_group_2)) : null,
                 'place_of_birth_group_2' => $this->place_of_birth_group_2,
-                'gender_group_2' => $this->gender_group_2,
+                'gender_group_2' => $this->gender_group_2 ? $this->gender_group_2 : null,
                 'identity_document_group_2' => $this->identity_document_group_2,
                 'document_number_group_2' => $this->document_number_group_2,
                 'document_issuing_place_group_2' => $this->document_issuing_place_group_2,

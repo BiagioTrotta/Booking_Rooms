@@ -5,7 +5,7 @@
             <h1 class="bg-dark text-white rounded-top px-1">Filtra Prenotazioni</h1>
             <!-- ... altri campi del form ... -->
             <div class="form-group col-12 col-md-6 d-flex flex-column align-items-center justify-content-center">
-                <label for="startDate" class="fw-bold">Seleziona Intervallo:</label>
+                <label for="dateRange" class="fw-bold">Seleziona Intervallo:</label>
                 <input type="text" class="w-75" id="dateRange" name="dateRange" class="form-control" placeholder="Seleziona intervallo" value="{{ old('dateRange', $dateRange) }}">
             </div>
             <div class="form-group col-12 col-md-6 d-flex flex-column align-items-center justify-content-center">

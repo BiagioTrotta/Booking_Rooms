@@ -33,7 +33,6 @@ class ReservationController extends Controller
             'paid' => $paid,
         ]);
 
-
         // Inizializza le variabili $startDate e $endDate con valori predefiniti
         $startDate = null;
         $endDate = null;
@@ -42,7 +41,6 @@ class ReservationController extends Controller
         // Verifica se è stato selezionato un intervallo di date
         if ($dateRange && strpos($dateRange, ' to ') !== false) {
             [$startDate, $endDate] = explode(' to ', $dateRange);
-
             // Verifica che l'array generato da explode contenga almeno due elementi
             if (count([$startDate, $endDate]) >= 2) {
                 // Verifica che la data di fine sia successiva alla data di inizio
@@ -57,6 +55,13 @@ class ReservationController extends Controller
                     $endDate = Carbon::parse($endDate)->addDay()->format('Y-m-d');
                 }
             }
+        } else {
+            // Se è stata selezionata solo una data, imposta la data di inizio e di fine
+            // sulla data selezionata e sulla fine dell'anno corrente
+            $startDate = Carbon::parse($dateRange)->format('Y-m-d');
+            $endDate = Carbon::now()->endOfYear()->format('Y-m-d');
+            // Costruisci la stringa $dateRange utilizzando la data di check-in selezionata e la data di fine dell'anno corrente
+            $dateRange = $startDate . ' to ' . $endDate;
         }
 
         // Ottenere il mese dell'intervallo selezionato
@@ -66,17 +71,11 @@ class ReservationController extends Controller
             $selectedMonth = Carbon::now()->format('F Y'); // Imposta il mese attuale come predefinito se non è stato selezionato alcun intervallo di date
         }
 
-        // Imposta la data di fine su fine dell'anno corrente se non specificata
-        if (!$endDate) {
-            $endDate = Carbon::now()->endOfYear()->format('d-m-Y');
-        }
-
-
         $query = Reservation::with(['client', 'room'])
-        ->select('id', 'client_id', 'room_id', 'beds', 'check_in', 'check_out', 'price', 'price_tot', 'paid')
-        ->selectRaw("DATE_FORMAT(created_at, '%d/%m/%Y %H:%i:%s') as formatted_created_at")//diffforhumans
-        ->orderBy('check_in')
-        ->orderBy('room_id');
+            ->select('id', 'client_id', 'room_id', 'beds', 'check_in', 'check_out', 'price', 'price_tot', 'paid')
+            ->selectRaw("DATE_FORMAT(created_at, '%d/%m/%Y %H:%i:%s') as formatted_created_at") //diffforhumans
+            ->orderBy('check_in')
+            ->orderBy('room_id');
 
         if ($startDate && $endDate) {
             $query->where(function ($query) use ($startDate, $endDate) {
@@ -98,7 +97,6 @@ class ReservationController extends Controller
                 $query->where('id', $selectedRoom);
             });
         }
-
 
         $reservations = $query->paginate(8)->withQueryString();
 
@@ -177,7 +175,7 @@ class ReservationController extends Controller
             'room_id' => $room_id,
             'beds' => $beds,
             'check_in' => $check_in,
-            'check_out' => $check_out,'price' => $price,
+            'check_out' => $check_out, 'price' => $price,
             'price_tot' => $price_tot, // Salva il prezzo totale calcolato
         ]);
 
@@ -304,6 +302,4 @@ class ReservationController extends Controller
 
         return redirect()->back()->with('success', 'Prenotazione eliminata con successo!');
     }
-
-
 }
