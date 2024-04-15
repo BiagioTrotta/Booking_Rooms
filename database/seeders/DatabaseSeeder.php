@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
 
         $user = \App\Models\User::create([
             'name' => 'Manager',
-            'email' => 'menager@example.com',
+            'email' => 'manager@example.com',
             'password' => \Illuminate\Support\Facades\Hash::make('12345678'),
             'is_manager' => 1,
         ]);
@@ -99,6 +99,20 @@ class DatabaseSeeder extends Seeder
                 'updated_at' => now(),
             ]);
         }
+
+        Room::create([
+            'room_number' => 'App. Gr.',
+            'beds' => 2,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        Room::create([
+            'room_number' => 'App. Pic.',
+            'beds' => 2,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 
     public function clients()
