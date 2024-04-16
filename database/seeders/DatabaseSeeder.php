@@ -35,6 +35,14 @@ class DatabaseSeeder extends Seeder
             'password' => \Illuminate\Support\Facades\Hash::make('12345678'),
             'is_manager' => 1,
         ]);
+
+        $user = \App\Models\User::create([
+            'name' => 'HotelPoseidon',
+            'email' => 'info@poseidonhotel.it',
+            'password' => \Illuminate\Support\Facades\Hash::make('Poseidon1'),
+            'is_manager' => 1,
+        ]);
+
         $user = \App\Models\User::create([
             'name' => 'User',
             'email' => 'user@example.com',
