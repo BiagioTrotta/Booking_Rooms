@@ -1,55 +1,66 @@
-<div class="container">
-    <div class="row">
-        <div class="col-12">
-            <h2 class="fa">Lista Utenti <i class="fa-solid fa-users"></i></h2>
+<div class="container mt-4">
+    <div class="row mb-3">
+        <div class="col">
+            <h2 class="fa mb-3">Lista Utenti <i class="fa-solid fa-users ms-2"></i></h2>
+
+            @if(session()->has('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+            @endif
+
+            @if(session()->has('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+            @endif
         </div>
-        @if(session()->has('success'))
-        <div class="alert alert-success">
-            {{session('success')}}
-        </div>
-        @endif
-        @if(session()->has('error'))
-        <div class="alert alert-danger">
-            {{session('error')}}
-        </div>
-        @endif
     </div>
-    <div class="table-responsive rounded">
-        <table class="table table-striped">
+
+    <div class="table-responsive shadow-sm rounded">
+        <table class="table table-striped align-middle">
             <thead class="table-dark">
-                <th>Name</th>
-                <th>Email</th>
-                <th class="text-center">Admin</th>
-                <th class="text-center">Manager</th>
-                <th></th>
+                <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Email</th>
+                    <th scope="col" class="text-center">Admin</th>
+                    <th scope="col" class="text-center">Manager</th>
+                    <th scope="col" class="text-center">Azioni</th>
+                </tr>
             </thead>
             <tbody>
-                @foreach( $utenti as $user )
-                <tr class="table-light">
+                @foreach($utenti as $user)
+                <tr>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td class="text-center">
-                        @if($user->is_admin)
-                        <i class="fa-solid fa-check text-success"></i>
-                        @else
-                        <i class="fa-solid fa-xmark"></i>
-                        @endif
+                        <i class="fa-solid {{ $user->is_admin ? 'fa-check text-success' : 'fa-xmark text-danger' }}"></i>
                     </td>
                     <td class="text-center">
-                        @if($user->is_manager)
-                        <i class="fa-solid fa-check text-success"></i>
-                        @else
-                        <i class="fa-solid fa-xmark"></i>
-                        @endif
+                        <i class="fa-solid {{ $user->is_manager ? 'fa-check text-success' : 'fa-xmark text-danger' }}"></i>
                     </td>
-                    <td class="d-flex justify-content-around">
-                        <button class="btn btn-sm btn-dark fa" wire:click="editUser({{ $user->id }})"><i class="fa-solid fa-pen-to-square"></i></button>
-                        <button class="btn btn-sm btn-danger fa" wire:click="deleteUser({{$user->id}})"><i class="fa-solid fa-trash"></i></button>
+                    <td class="text-center">
+                        <div class="btn-group" role="group" aria-label="Azioni utente">
+                            <button class="btn btn-sm btn-outline-primary"
+                                wire:click="editUser({{ $user->id }})"
+                                title="Modifica">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger"
+                                wire:click="deleteUser({{ $user->id }})"
+                                title="Elimina">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
                     </td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
-        {{ $utenti->links() }}
+
+        {{-- Paginazione Livewire --}}
+        <div class="mt-3">
+            {{ $utenti->links() }}
+        </div>
     </div>
 </div>

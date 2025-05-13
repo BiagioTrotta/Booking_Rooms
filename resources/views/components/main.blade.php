@@ -5,10 +5,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $title ?? ''}}</title>
-    <!-- font google Montserrat normal medium bold -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- favicon -->
+    <link rel="icon" type="image/png" href="https://img.icons8.com/?size=100&id=v7D348xxPOBS&format=png&color=000000">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
     <!-- Aggiungi i link agli stili e agli script di Flatpickr -->
