@@ -72,5 +72,5 @@
     </div>
 
     <!-- CSS Styles -->
-    @vite(['resources/css/calendar.css'])
+    <link rel="stylesheet" href="{{ asset('css/calendar.css') }}">
 </x-main>
