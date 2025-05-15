@@ -1,5 +1,6 @@
 import './bootstrap';
 import 'bootstrap';
+import '../css/calendar.css';
 
 //Invertire date intervallo filtro
 document.addEventListener('DOMContentLoaded', function () {
