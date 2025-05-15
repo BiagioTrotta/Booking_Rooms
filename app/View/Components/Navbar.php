@@ -32,6 +32,7 @@ class Navbar extends Component
                     route('reservation.create') => 'Prenotazioni',
                     route('admin.clients') => 'Aggiungi Cliente',
                     route('clients.search') => 'Cerca Cliente',
+                    route('reservations.monthly')  => 'Calendario',
                     route('admin.users') => 'Aggiungi Utente',
                 ];
             } elseif (Auth::user()->is_manager) {
@@ -39,6 +40,7 @@ class Navbar extends Component
                     route('reservation.create') => 'Prenotazioni',
                     route('admin.clients') => 'Aggiungi Cliente',
                     route('clients.search') => 'Cerca Cliente',
+                    route('reservations.monthly') => 'Calendario',
                 ];
             }
         }

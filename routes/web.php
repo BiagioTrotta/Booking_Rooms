@@ -30,3 +30,5 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     // Rotte per gli utenti
     Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
 });
+
+Route::get('/prenotazioni/mese', [ReservationController::class, 'monthlyView'])->name('reservations.monthly');

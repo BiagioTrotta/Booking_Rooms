@@ -175,7 +175,8 @@ class ReservationController extends Controller
             'room_id' => $room_id,
             'beds' => $beds,
             'check_in' => $check_in,
-            'check_out' => $check_out, 'price' => $price,
+            'check_out' => $check_out,
+            'price' => $price,
             'price_tot' => $price_tot, // Salva il prezzo totale calcolato
         ]);
 
@@ -301,5 +302,53 @@ class ReservationController extends Controller
         $reservation->delete();
 
         return redirect()->back()->with('success', 'Prenotazione eliminata con successo!');
+    }
+
+    public function monthlyView(Request $request)
+    {
+        setlocale(LC_TIME, 'it_IT.UTF-8');
+        Carbon::setLocale('it');
+
+        $title = 'Calendar';
+
+        // Prendi input e castta a intero
+        $year = (int) $request->input('year', now()->year);
+        $month = (int) $request->input('month', now()->month);
+
+        // Controlla validità di anno e mese
+        if ($year < 1970 || $year > 2100) {
+            $year = now()->year;
+        }
+        if ($month < 1 || $month > 12) {
+            $month = now()->month;
+        }
+
+        // Crea data con valori sicuri
+        $startOfMonth = Carbon::createFromDate($year, $month, 1)->startOfMonth();
+        $endOfMonth = $startOfMonth->copy()->endOfMonth();
+        $daysInMonth = $startOfMonth->daysInMonth;
+
+        $previousMonth = $startOfMonth->copy()->subMonth()->format('Y-m');
+        $nextMonth = $startOfMonth->copy()->addMonth()->format('Y-m');
+
+        $rooms = Room::with(['reservations' => function ($query) use ($startOfMonth, $endOfMonth) {
+            $query->where(function ($q) use ($startOfMonth, $endOfMonth) {
+                $q->whereBetween('check_in', [$startOfMonth, $endOfMonth])
+                    ->orWhereBetween('check_out', [$startOfMonth, $endOfMonth])
+                    ->orWhere(function ($q2) use ($startOfMonth, $endOfMonth) {
+                        $q2->where('check_in', '<=', $startOfMonth)
+                            ->where('check_out', '>=', $endOfMonth);
+                    });
+            })->with('client');
+        }])->get();
+
+        return view('reservations.calendar', compact(
+            'title',
+            'rooms',
+            'startOfMonth',
+            'daysInMonth',
+            'previousMonth',
+            'nextMonth'
+        ));
     }
 }
