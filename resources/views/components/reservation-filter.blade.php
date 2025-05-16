@@ -104,12 +104,12 @@
                                 </th>
                                 <th class="px-3 py-3">
                                     <div class="d-flex align-items-center">
-                                        <i class="fa-solid fa-door-closed me-2 text-primary"></i> N. Camera
+                                        <i class="fa-solid fa-door-closed me-2 text-primary"></i> Camera
                                     </div>
                                 </th>
                                 <th class="px-3 py-3">
                                     <div class="d-flex align-items-center">
-                                        <i class="fa-solid fa-bed me-2 text-primary"></i> P. Letto
+                                        <i class="fa-solid fa-bed me-2 text-primary"></i> Letti
                                     </div>
                                 </th>
                                 <th class="px-3 py-3">
@@ -124,17 +124,17 @@
                                 </th>
                                 <th class="px-3 py-3">
                                     <div class="d-flex align-items-center">
-                                        <i class="fa-solid fa-euro-sign me-2 text-primary"></i> Prezzo notte
+                                        <i class="fa-solid fa-euro-sign me-2 text-primary"></i> Prezzo_notte
                                     </div>
                                 </th>
                                 <th class="px-3 py-3">
                                     <div class="d-flex align-items-center">
-                                        <i class="fa-solid fa-euro-sign me-2 text-primary"></i> Prezzo totale
+                                        <i class="fa-solid fa-euro-sign me-2 text-primary"></i> Totale
                                     </div>
                                 </th>
                                 <th class="px-3 py-3">
                                     <div class="d-flex align-items-center">
-                                        <i class="fa-solid fa-clock me-2 text-primary"></i> Data creazione
+                                        <i class="fa-solid fa-clock me-2 text-primary"></i> Creazione
                                     </div>
                                 </th>
                                 <th class="px-3 py-3">

@@ -14,9 +14,10 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
-        $this->users();
-        $this->rooms();
-        $this->clients();
+        //$this->users();
+        //$this->rooms();
+        //$this->clients();
+        $this->roomsUpdate();
     }
 
     private function users()
@@ -117,6 +118,50 @@ class DatabaseSeeder extends Seeder
 
         Room::create([
             'room_number' => 'App. Pic.',
+            'beds' => 2,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        Room::create([
+            'room_number' => 'Pagnotta DX',
+            'beds' => 2,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+    }
+
+    public function roomsUpdate()
+    {
+
+        DB::table('rooms')
+            ->where('room_number', 'App. Gr.')
+            ->update(['room_number' => 'Palermo Gr.']);
+
+        DB::table('rooms')
+            ->where('room_number', 'App. Pic.')
+            ->update(['room_number' => 'Palermo Pic.']);
+
+        Room::create([
+            'room_number' => 'Benv. Gr.',
+            'beds' => 2,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        Room::create([
+            'room_number' => 'Benv. Pic.',
+            'beds' => 2,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        Room::create([
+            'room_number' => 'Pagnotta DX',
+            'beds' => 2,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        Room::create([
+            'room_number' => 'Pagnotta SX',
             'beds' => 2,
             'created_at' => now(),
             'updated_at' => now(),
