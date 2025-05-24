@@ -51,7 +51,7 @@
                                                     @php
                                                     $currentDate=$startOfMonth->copy()->day($day)->format('Y-m-d');
                                                     $reservation = $room->reservations->first(fn($res) =>
-                                                    $currentDate >= $res->check_in && $currentDate <= $res->check_out
+                                                    $currentDate >= $res->check_in && $currentDate < $res->check_out
                                                         );
                                                         @endphp
                                                         @if ($reservation)
