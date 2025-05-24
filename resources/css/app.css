@@ -1,4 +1,5 @@
 @import 'bootstrap';
+@import './calendar.css';
 body {
     background-color: lightgray;
 }
