@@ -18,7 +18,7 @@ class ReservationController extends Controller
     public function create(Request $request)
     {
         $title = 'Prenotazioni';
-        $clients = Client::all();
+        $clients = Client::orderBy('id', 'desc')->get();
         $rooms = Room::all();
         $selectedClient = $request->input('selectedClient');
         $selectedRoom = $request->input('selectedRoom');
@@ -288,7 +288,7 @@ class ReservationController extends Controller
     public function edit($id)
     {
         $title = 'Modifica Prenotazione';
-        $clients = Client::all();
+        $clients = Client::orderBy('id', 'desc')->get();
         $rooms = Room::all();
         $reservation = Reservation::findOrFail($id);
 

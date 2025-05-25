@@ -62,7 +62,7 @@ class ClientList extends Component
     public function render()
     {
         return view('livewire.client-list', [
-            'clienti' => Client::orderBy('id')->paginate(8),
+            'clienti' => Client::orderBy('id', 'desc')->paginate(8),
         ]);
     }
 
